@@ -4,7 +4,7 @@ function connectToDB()
 {
     return new PDO(
         'mysql:host=devkinsta_db;
-        dbname=Store_App',
+        dbname=mystore',
         'root',
         'qQs06NBbdQOEMav6'
     );

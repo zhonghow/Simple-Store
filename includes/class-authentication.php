@@ -49,7 +49,7 @@ class Authentication
                 ];
 
                 // redirect user back to index
-                header('Location: /');
+                header('Location:/');
                 exit;
             } else {
                 return 'Invalid email or password';
