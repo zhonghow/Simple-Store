@@ -2,7 +2,8 @@
 
 session_start();
 
-if(!isset($_SESSION['csrf_token'])) {
+// process the login form
+if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
@@ -12,7 +13,8 @@ require "includes/class-authentication.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    if($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    //verify the csrf token is correct or not
+    if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         die("Nice try buddy! I'm smarter than you");
     }
 
