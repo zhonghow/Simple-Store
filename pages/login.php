@@ -2,11 +2,19 @@
 
 session_start();
 
+if(!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 require "includes/functions.php";
 require "includes/class-authentication.php";
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    if($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("Nice try buddy! I'm smarter than you");
+    }
 
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -34,9 +42,9 @@ require "templates/header.php";
                 <h5 class="card-title text-center mb-3 py-3 border-bottom">
                     Login To Your Account
                 </h5>
-                
+
                 <?php require "templates/erroralert.php"; ?>
-                
+
                 <form action="<?php $_SERVER['REQUEST_URI'] ?>" method="POST">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
@@ -51,6 +59,9 @@ require "templates/header.php";
                             Login
                         </button>
                     </div>
+
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+
                 </form>
             </div>
         </div>
