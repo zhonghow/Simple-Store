@@ -6,9 +6,9 @@ require "includes/functions.php";
 
 if (isLoggedIn()) {
     logOut();
-    header('Location:/login.php');
+    header('Location:/login');
     exit;
 } else {
-    header('Location:/login.php');
+    header('Location:/login');
     exit;
 }

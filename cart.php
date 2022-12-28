@@ -64,7 +64,7 @@ require "templates/header.php";
         </table>
 
         <div class="d-flex justify-content-between align-items-center my-3">
-            <a href="index.php" class="btn btn-light btn-sm">Continue Shopping</a>
+            <a href="/" class="btn btn-light btn-sm">Continue Shopping</a>
             <button class="btn btn-primary">Checkout</a>
         </div>
 
@@ -72,11 +72,11 @@ require "templates/header.php";
 
     <!-- footer -->
     <div class="d-flex justify-content-between align-items-center pt-4 pb-2">
-        <div class="text-muted small">© 2022 <a href="index.php" class="text-muted">My Store</a></div>
+        <div class="text-muted small">© 2022 <a href="/" class="text-muted">My Store</a></div>
         <div class="d-flex align-items-center gap-3">
-            <a href="login.php" class="btn btn-light btn-sm">Login</a>
-            <a href="signup.php" class="btn btn-light btn-sm">Sign Up</a>
-            <a href="order.php" class="btn btn-light btn-sm">My Orders</a>
+            <a href="/login" class="btn btn-light btn-sm">Login</a>
+            <a href="/signup" class="btn btn-light btn-sm">Sign Up</a>
+            <a href="/order" class="btn btn-light btn-sm">My Orders</a>
         </div>
     </div>
 
