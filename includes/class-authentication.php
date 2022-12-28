@@ -13,20 +13,20 @@ class Authentication
 
     public function login($email = '', $password = '')
     {
-        
+
         $error = '';
 
-        if (empty($email) || empty($password))  {
+        if (empty($email) || empty($password)) {
             $error = 'All fields are required';
         }
 
 
-        if(!empty($error)) {
+        if (!empty($error)) {
             return $error;
         }
-        
+
         $statement = $this->database->prepare(
-            'SELECT * FROM user_info WHERE email = :email'
+            'SELECT * FROM users WHERE email = :email'
         );
 
         $statement->execute([
@@ -74,14 +74,14 @@ class Authentication
             $error = 'The password & confirm password field should match';
         }
 
-        if(!empty($error)) {
+        if (!empty($error)) {
             return $error;
         }
 
 
         // make sure user's email wasn't already exists in database
         $statement = $this->database->prepare(
-            'SELECT * FROM user_info WHERE email = :email'
+            'SELECT * FROM users WHERE email = :email'
         );
 
         $statement->execute([
@@ -97,7 +97,7 @@ class Authentication
         } else {
             // if user doesn't exists, insert user data into database
             $statement = $this->database->prepare(
-                'INSERT INTO user_info ( email, password )
+                'INSERT INTO users ( email, password )
                 VALUES (:email, :password )'
             );
 

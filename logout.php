@@ -9,6 +9,6 @@ if (isLoggedIn()) {
     header('Location:/login.php');
     exit;
 } else {
-    header('Location: /login.php');
+    header('Location:/login.php');
     exit;
 }
