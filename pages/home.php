@@ -3,6 +3,11 @@
 session_start();
 
 require "includes/functions.php";
+require "includes/class-products.php";
+
+$products = new Products();
+
+$products_list = $products->listAllProducts();
 
 ?>
 
@@ -32,89 +37,40 @@ require "templates/header.php";
 
         <!-- products -->
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-product-1_large.png?format=webp&v=1530129292" class="card-img-top" alt="Product 1" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Product 1</h5>
-                        <p class="card-text">$50</p>
-                        <button class="btn btn-primary">Add to cart</button>
+            <?php foreach ($products_list as $items) : ?>
+                <div class="col">
+                    <div class="card h-100 border border-0 shadow">
+                        <img src="<?= $items['image_url'] ?>" class="card-img-top" alt="<?= $items['name'] ?>" />
+                        <div class="card-body text-center">
+                            <h5 class="card-title"><?= $items['name'] ?></h5>
+                            <p class="card-text"><?= "$" . $items['price'] ?></p>
+                                <button class="btn btn-primary">Add to cart</button>
+                        </div>
                     </div>
                 </div>
+            <?php endforeach ?>
+        </div>
+
+        <!-- footer -->
+        <div class="d-flex justify-content-between align-items-center pt-4 pb-2">
+            <div class="text-muted small">
+                © 2022 <a href="/" class="text-muted">My Store</a>
             </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-product-2_large.png?format=webp&v=1530129318" class="card-img-top" alt="Product 2" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Product 2</h5>
-                        <p class="card-text">$30</p>
-                        <button class="btn btn-primary">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-product-3_large.png?format=webp&v=1530129341" class="card-img-top" alt="Product 3" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Product 3</h5>
-                        <p class="card-text">$20</p>
-                        <button class="btn btn-primary">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-product-4_large.png?format=webp&v=1530129292" class="card-img-top" alt="Product 4" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Product 4</h5>
-                        <p class="card-text">$40</p>
-                        <button class="btn btn-primary">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-product-5_large.png?format=webp&v=1530129318" class="card-img-top" alt="Product 5" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Product 5</h5>
-                        <p class="card-text">$35</p>
-                        <button class="btn btn-primary">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-product-6_large.png?format=webp&v=1530129341" class="card-img-top" alt="Product 6" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Product 6</h5>
-                        <p class="card-text">$26</p>
-                        <button class="btn btn-primary">Add to cart</button>
-                    </div>
-                </div>
+            <div class="d-flex align-items-center gap-3">
+                <?php if (isLoggedIn()) : ?>
+                    <a href="/order" class="btn btn-light btn-sm">My Orders</a>
+                    <a href="/logout" class="btn btn-light btn-sm">Log Out</a>
+                <?php endif ?>
+                <?php if (!isLoggedIn()) : ?>
+                    <a href="/login" class="btn btn-light btn-sm">Login</a>
+                    <a href="/signup" class="btn btn-light btn-sm">Sign Up</a>
+                <?php endif ?>
             </div>
         </div>
     </div>
 
-    <!-- footer -->
-    <div class="d-flex justify-content-between align-items-center pt-4 pb-2">
-        <div class="text-muted small">
-            © 2022 <a href="/" class="text-muted">My Store</a>
-        </div>
-        <div class="d-flex align-items-center gap-3">
-            <?php if (isLoggedIn()) : ?>
-                <a href="/order" class="btn btn-light btn-sm">My Orders</a>
-                <a href="/logout" class="btn btn-light btn-sm">Log Out</a>
-            <?php endif ?>
-            <?php if (!isLoggedIn()) : ?>
-                <a href="/login" class="btn btn-light btn-sm">Login</a>
-                <a href="/signup" class="btn btn-light btn-sm">Sign Up</a>
-            <?php endif ?>
-        </div>
-    </div>
-</div>
+    <?
 
-<?
+    require "templates/footer.php";
 
-require "templates/footer.php";
-
-?>
+    ?>

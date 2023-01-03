@@ -2,9 +2,8 @@
 
 session_start();
 
-// process the login form
-if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+if (!isset($_SESSION['login_form_csrf_token'])) {
+    $_SESSION['login_form_csrf_token'] = bin2hex(random_bytes(32));
 }
 
 require "includes/functions.php";
@@ -14,7 +13,7 @@ require "includes/class-authentication.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //verify the csrf token is correct or not
-    if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    if ($_POST['login_form_csrf_token'] !== $_SESSION['login_form_csrf_token']) {
         die("Nice try buddy! I'm smarter than you");
     }
 
@@ -62,7 +61,7 @@ require "templates/header.php";
                         </button>
                     </div>
 
-                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                    <input type="hidden" name="login_form_csrf_token" value="<?= $_SESSION['login_form_csrf_token']; ?>">
 
                 </form>
             </div>

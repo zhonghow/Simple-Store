@@ -12,16 +12,11 @@ function connectToDB()
 
 function isLoggedIn()
 {
-    // If user == logged in, return true
-    // If user != logged in, return false
-
     return isset($_SESSION['user']);
 }
 
 
 function logOut()
 {
-    //Deletes the session data so that the user is log out
     unset($_SESSION['user']);
 }
-
