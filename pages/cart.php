@@ -124,13 +124,15 @@ require "templates/header.php";
 
         <div class="d-flex justify-content-between align-items-center my-3">
             <?php if ($cart->total() <= 0) : ?>
-                <p class="d-flex">Your cart is empty! Go Shopping :D</p>
+                <p class="d-flex">Your cart is empty. Try adding something into the cart!</p>
                 <a href="/" class="btn btn-success btn-sm">Continue Shopping</a>
             <?php endif ?>
             <?php if ($cart->total() > 0) : ?>
                 <a href="/" class="btn btn-light btn-sm">Continue Shopping</a>
-                <button class="btn btn-primary">Checkout</a>
-                <?php endif ?>
+                <form action="/checkout" method="POST">
+                    <button class="btn btn-primary">Checkout</button>
+                </form>
+            <?php endif ?>
 
         </div>
 

@@ -3,6 +3,18 @@
 session_start();
 
 require "includes/functions.php";
+require "includes/class-orders.php";
+
+$orders = new Orders();
+
+// Make sure user already logged in
+if (!isLoggedIn()) {
+    header('Location:/login');
+    exit;
+}
+
+$user_id = $_SESSION['user']['id'];
+
 
 
 ?>
@@ -30,28 +42,20 @@ require "templates/header.php";
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>
-                        <ul class="list-unstyled">
-                            <li>Product 1</li>
-                            <li>Product 2</li>
-                        </ul>
-                    </td>
-                    <td>$80</td>
-                    <td>Pending Payment</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>
-                        <ul class="list-unstyled">
-                            <li>Product 3</li>
-                            <li>Product 4</li>
-                        </ul>
-                    </td>
-                    <td>$60</td>
-                    <td>Completed</td>
-                </tr>
+                <?php foreach ($orders->listAllOrders($user_id) as $order) : ?>
+                    <tr>
+                        <th scope="row"><?= $order['id'] ?></th>
+                        <td>
+                            <ul class="list-unstyled">
+                                <?php foreach ($orders->listProductsInOrder($order['id']) as $product) : ?>
+                                    <li><?= $product['name'] . " " . "(" . $product['quantity'] . " item)" ?></li>
+                                <?php endforeach ?>
+                            </ul>
+                        </td>
+                        <td>$<?= $order['total_amount'] ?></td>
+                        <td><?= $order['status'] ?></td>
+                    </tr>
+                <?php endforeach ?>
             </tbody>
         </table>
 

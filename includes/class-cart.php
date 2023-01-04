@@ -79,7 +79,7 @@ class Cart
             ++$_SESSION['cart'][$product_id];
         }
     }
-    
+
     public function minusOne($product_id)
     {
         if (isset($_SESSION['cart'][$product_id])) {
@@ -102,5 +102,10 @@ class Cart
                 $_SESSION['cart'][$product_id] = $_POST['quantity'];
             }
         }
+    }
+
+    public function emptyCart()
+    {
+        unset($_SESSION['cart']);
     }
 }
