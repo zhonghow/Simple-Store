@@ -8,7 +8,6 @@ require "includes/class-products.php";
 $products = new Products();
 
 $products_list = $products->listAllProducts();
-
 ?>
 
 <?php
@@ -42,35 +41,48 @@ require "templates/header.php";
                     <div class="card h-100 border border-0 shadow">
                         <img src="<?= $items['image_url'] ?>" class="card-img-top" alt="<?= $items['name'] ?>" />
                         <div class="card-body text-center">
-                            <h5 class="card-title"><?= $items['name'] ?></h5>
-                            <p class="card-text"><?= "$" . $items['price'] ?></p>
+                            <h5 class="card-title m-0"><?= $items['name'] ?></h5>
+                            <p class="card-text mb-2"><?= "$" . $items['price'] ?></p>
+
+                            <!-- 
+                                action="/cart" => when button is click, user will go to cart page
+                            -->
+                            <form action="/cart" method="POST">
+                                <!-- 
+                                    product id will pass to the cart page
+                                 -->
+                                <input type="hidden" name="product_id" value="<?= $items['id']; ?>">
                                 <button class="btn btn-primary">Add to cart</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
             <?php endforeach ?>
         </div>
-
-        <!-- footer -->
-        <div class="d-flex justify-content-between align-items-center pt-4 pb-2">
-            <div class="text-muted small">
-                © 2022 <a href="/" class="text-muted">My Store</a>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                <?php if (isLoggedIn()) : ?>
-                    <a href="/order" class="btn btn-light btn-sm">My Orders</a>
-                    <a href="/logout" class="btn btn-light btn-sm">Log Out</a>
-                <?php endif ?>
-                <?php if (!isLoggedIn()) : ?>
-                    <a href="/login" class="btn btn-light btn-sm">Login</a>
-                    <a href="/signup" class="btn btn-light btn-sm">Sign Up</a>
-                <?php endif ?>
-            </div>
-        </div>
     </div>
 
-    <?
 
-    require "templates/footer.php";
+    <!-- footer -->
+    <div class="d-flex justify-content-between align-items-center pt-4 pb-2">
+        <div class="text-muted small">
+            © 2022 <a href="/" class="text-muted">My Store</a>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <?php if (isLoggedIn()) : ?>
+                <a href="/order" class="btn btn-light btn-sm">My Orders</a>
+                <a href="/logout" class="btn btn-light btn-sm">Log Out</a>
+            <?php endif ?>
+            <?php if (!isLoggedIn()) : ?>
+                <a href="/login" class="btn btn-light btn-sm">Login</a>
+                <a href="/signup" class="btn btn-light btn-sm">Sign Up</a>
+            <?php endif ?>
+        </div>
+    </div>
+</div>
 
-    ?>
+<?
+
+require "templates/footer.php";
+
+?>

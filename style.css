@@ -1,0 +1,14 @@
+.quantity {
+  border: none;
+  background-color: transparent;
+  text-align: center;
+}
+
+.quantity::-webkit-outer-spin-button,
+.quantity::-webkit-inner-spin-button {
+  appearance: none;
+}
+
+.quantity:focus {
+    outline: none;
+}
